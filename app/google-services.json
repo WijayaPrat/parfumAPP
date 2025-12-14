@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1002592707936",
+    "firebase_url": "https://fragrance-center-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "fragrance-center",
+    "storage_bucket": "fragrance-center.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002592707936:android:6512a8db2a5be211f06a05",
+        "android_client_info": {
+          "package_name": "com.wijayaprat.fragrancecenter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEdyh9U8ACtAk7O5p4xChFsAL2NNSt-ok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
