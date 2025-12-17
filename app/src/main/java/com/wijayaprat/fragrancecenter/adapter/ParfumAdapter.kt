@@ -4,18 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.wijayaprat.fragrancecenter.R   // ✅ WAJIB
 import com.wijayaprat.fragrancecenter.databinding.ItemParfumBinding
 import com.wijayaprat.fragrancecenter.model.ParfumModel
-import android.widget.Toast
-import com.wijayaprat.fragrancecenter.helper.ManagementCart
 
 class ParfumAdapter(
-    private val list: List<ParfumModel>
+    private val list: List<ParfumModel>,
+    private val onClick: (ParfumModel) -> Unit
 ) : RecyclerView.Adapter<ParfumAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: ItemParfumBinding)
-        : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ItemParfumBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemParfumBinding.inflate(
@@ -29,21 +27,24 @@ class ParfumAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
 
-        holder.binding.txtTitle.text = item.title
-        holder.binding.txtExtra.text = item.extra
-        holder.binding.txtPrice.text = "Rp ${item.price}"
+        holder.binding.tvTitle.text = item.title
+        holder.binding.tvPrice.text = "Rp ${item.price}"
 
         Glide.with(holder.itemView.context)
-            .load(
-                if (item.picUrl.isNotEmpty())
-                    item.picUrl
-                else
-                    R.drawable.ic_launcher_foreground
-            )
-            .placeholder(R.drawable.ic_launcher_foreground)
-            .error(R.drawable.ic_launcher_foreground)
-            .into(holder.binding.imgParfum)
+            .load(item.imageUrl)
+            .into(holder.binding.imgProduct)
+
+        holder.itemView.setOnClickListener {
+            onClick(item)
+        }
     }
 
     override fun getItemCount(): Int = list.size
+
+    // 🔥 INI YANG MEMPERBAIKI ERROR KAMU
+    fun updateData(newList: List<ParfumModel>) {
+        list.clear()
+        list.addAll(newList)
+        notifyDataSetChanged()
+    }
 }

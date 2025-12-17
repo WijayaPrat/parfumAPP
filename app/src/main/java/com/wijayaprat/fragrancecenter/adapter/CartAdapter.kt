@@ -1,71 +1,35 @@
 package com.wijayaprat.fragrancecenter.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.wijayaprat.fragrancecenter.R
+import com.bumptech.glide.Glide // Pastikan library Glide ada di build.gradle
 import com.wijayaprat.fragrancecenter.databinding.ItemCartBinding
-import com.wijayaprat.fragrancecenter.model.ParfumModel
+import com.wijayaprat.fragrancecenter.model.CartModel
 
-class CartAdapter(
-    private val list: MutableList<ParfumModel>,
-    private val onUpdate: () -> Unit
-) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
+class CartAdapter(private val context: Context, private val cartList: List<CartModel>) :
+    RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
-    inner class ViewHolder(val binding: ItemCartBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    class CartViewHolder(val binding: ItemCartBinding) : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemCartBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return ViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
+        val binding = ItemCartBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return CartViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = list[position]
+    override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
+        val item = cartList[position]
 
-        holder.binding.txtTitle.text = item.title
-        holder.binding.txtQuantity.text = item.quantity.toString()
-        holder.binding.txtPrice.text =
-            holder.itemView.context.getString(
-                R.string.price_format,
-                item.price * item.quantity
-            )
+        holder.binding.tvProductName.text = item.productName
+        holder.binding.tvPrice.text = item.price.toString()
 
-        Glide.with(holder.itemView.context)
-            .load(item.picUrl)
-            .placeholder(R.drawable.ic_launcher_foreground)
-            .error(R.drawable.ic_launcher_foreground)
-            .into(holder.binding.imgParfum)
-
-        // ➕ Tambah quantity
-        holder.binding.btnPlus.setOnClickListener {
-            item.quantity++
-            notifyItemChanged(position)
-            onUpdate()
-        }
-
-        // ➖ Kurangi quantity
-        holder.binding.btnMinus.setOnClickListener {
-            if (item.quantity > 1) {
-                item.quantity--
-                notifyItemChanged(position)
-                onUpdate()
-            }
-        }
-
-        // ❌ Hapus item (long press)
-        holder.itemView.setOnLongClickListener {
-            list.removeAt(position)
-            notifyItemRemoved(position)
-            onUpdate()
-            true
-        }
+        // Error Fix: Menggunakan Glide dengan syntax yang benar
+        // Pastikan variabel di XML (id) adalah imgProduct
+        Glide.with(context)
+            .load(item.imageUrl) // Pastikan Model Cart punya imageUrl
+            .into(holder.binding.imgProduct)
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount() = cartList.size
 }

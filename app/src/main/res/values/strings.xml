@@ -1,16 +1,90 @@
 <resources>
+
+    <!-- App -->
     <string name="app_name">FragranceCenter</string>
+
+    <!-- Menu / Action -->
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
+    <string name="cart">Cart</string>
+
+    <!-- Navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="price_format">Rp %1$d</string>
+
+    <!-- General -->
+    <string name="add">Add</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="checkout">Checkout</string>
+
+    <!-- Images -->
+    <string name="parfum_image_desc">Parfum image</string>
+
+    <!-- Cart / Badge -->
+    <string name="cart_badge_zero">0</string>
+    <string name="total_price_default">Rp 0</string>
     <string name="order_success">Order berhasil!</string>
+    <string name="added_to_cart">%1$s added to cart</string>
 
-    <string name="Description">
-        welcome to Fragrance center. This website would let you buy many unique and limited fragrance.
+    <!-- Price -->
+    <string name="price_format">Rp %1$d</string>
 
-    </string>
+    <!-- File Upload -->
+    <string name="upload_image">Upload Image</string>
+    <string name="image_selected">Image selected</string>
+    <string name="image_pick_failed">Failed to pick image</string>
+    <string name="pick_image_first">Pilih gambar terlebih dahulu</string>
+    <string name="image_upload_success">Upload berhasil!</string>
+    <string name="image_upload_failed">Upload gagal</string>
+
+    <!-- Location / Geolocation -->
+    <string name="detecting_location">Detecting location</string>
+    <string name="location_permission_denied">Izin lokasi ditolak</string>
+
+    <string name="branch_a">Cabang A</string>
+    <string name="branch_b">Cabang B</string>
+
+    <string name="location_result_format">
+Latitude: %1$.5f
+Longitude: %2$.5f
+Cabang terdekat: %3$s
+</string>
+
+    <!-- Sample UI -->
+    <string name="sample_parfum_name">Nama Parfum</string>
+    <string name="sample_parfum_extra">EDP 100ml</string>
+    <string name="sample_parfum_price">Rp 420.000</string>
+
+    <!-- About -->
+    <string name="description">
+Welcome to Fragrance Center. This application lets you buy many unique and limited fragrances.
+</string>
+
+    <!-- Product -->
+    <string name="product_saved">Produk berhasil disimpan</string>
+    <string name="product_save_failed">Gagal menyimpan produk</string>
+    <string name="load_product_failed">Gagal memuat produk</string>
+
+    <!-- Auth -->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Konfirmasi Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="go_to_register">Belum punya akun? Daftar</string>
+    <string name="already_have_account">Sudah punya akun? Login</string>
+    <string name="logout">Logout</string>
+
+    <string name="preview">Preview</string>
+    <string name="pick_image">Pick Image</string>
+    <string name="product_name">Product Name</string>
+    <string name="price">Price</string>
+    <string name="stock_a">Stock A</string>
+    <string name="stock_b">Stock B</string>
+    <string name="save_product">Save Product</string>
+
+    <string name="add_product">Tambah Produk</string>
+    <string name="product_list">Daftar Produk</string>
+
 </resources>

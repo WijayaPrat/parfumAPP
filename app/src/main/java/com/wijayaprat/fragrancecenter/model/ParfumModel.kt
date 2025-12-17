@@ -1,12 +1,14 @@
 package com.wijayaprat.fragrancecenter.model
 
+import java.io.Serializable
+
 data class ParfumModel(
-    val categoryId: Int = 0,
+    val id: String = "",
     val title: String = "",
     val description: String = "",
-    val extra: String = "",
-    val picUrl: String = "",   // ← WAJIB default ""
     val price: Int = 0,
-    val rating: Double = 0.0,
+    var imageUrl: String = "",
+    val brand: String = "",
+    var stock: Int = 0,
     var quantity: Int = 1
-)
+) : Serializable

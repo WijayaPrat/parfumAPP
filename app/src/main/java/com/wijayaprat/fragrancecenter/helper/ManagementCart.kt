@@ -7,41 +7,36 @@ import com.wijayaprat.fragrancecenter.model.ParfumModel
 
 class ManagementCart(context: Context) {
 
-    private val tinyDB = TinyDB(context)
+    private val prefs = context.getSharedPreferences("CART_PREF", Context.MODE_PRIVATE)
     private val gson = Gson()
-    private val key = "cart_list"
-
-    fun getCart(): MutableList<ParfumModel> {
-        val json = tinyDB.getString(key)
-        if (json.isNullOrEmpty()) return mutableListOf()
-
-        val type = object : TypeToken<MutableList<ParfumModel>>() {}.type
-        return gson.fromJson(json, type)
-    }
-
-    fun saveCart(list: MutableList<ParfumModel>) {
-        val json = gson.toJson(list)
-        tinyDB.putString(key, json)
-    }
 
     fun addItem(item: ParfumModel) {
         val list = getCart()
-        val index = list.indexOfFirst { it.title == item.title }
+        val index = list.indexOfFirst { it.id == item.id }
 
         if (index >= 0) {
-            list[index].quantity += item.quantity
+            list[index].quantity++
         } else {
             list.add(item)
         }
-
         saveCart(list)
     }
 
+    fun getCart(): ArrayList<ParfumModel> {
+        val json = prefs.getString("cart_list", null) ?: return arrayListOf()
+        val type = object : TypeToken<ArrayList<ParfumModel>>() {}.type
+        return gson.fromJson(json, type)
+    }
+
     fun clearCart() {
-        tinyDB.remove(key)
+        saveCart(arrayListOf())
     }
 
     fun getTotalPrice(): Int {
         return getCart().sumOf { it.price * it.quantity }
+    }
+
+    private fun saveCart(list: ArrayList<ParfumModel>) {
+        prefs.edit().putString("cart_list", gson.toJson(list)).apply()
     }
 }

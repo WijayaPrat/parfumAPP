@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!-- ICON CART -->
+    <ImageView
+        android:id="@+id/cart_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_cart"
+        android:contentDescription="@string/cart"/>
+
+    <!-- BADGE -->
+    <TextView
+        android:id="@+id/cart_badge"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_gravity="end|top"
+        android:background="@drawable/bg_cart_badge"
+        android:text="@string/cart_badge_zero"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:visibility="gone"/>
+</FrameLayout>

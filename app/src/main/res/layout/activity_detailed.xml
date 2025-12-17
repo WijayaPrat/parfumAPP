@@ -9,45 +9,61 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- GAMBAR PRODUK -->
         <ImageView
             android:id="@+id/imgParfum"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:scaleType="centerCrop" />
+            android:layout_height="280dp"
+            android:scaleType="centerCrop"
+            android:transitionName="parfum_image"
+            android:contentDescription="@string/parfum_image_desc" />
 
+        <!-- NAMA -->
         <TextView
             android:id="@+id/txtTitle"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
+        <!-- EXTRA -->
         <TextView
             android:id="@+id/txtExtra"
-            android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" />
 
+        <!-- HARGA -->
         <TextView
             android:id="@+id/txtPrice"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textStyle="bold" />
 
+        <!-- DESKRIPSI -->
         <TextView
             android:id="@+id/txtDescription"
-            android:layout_marginTop="12dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" />
 
+        <!-- UPLOAD IMAGE -->
+        <Button
+            android:id="@+id/btnUploadImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/upload_image" />
+
+        <!-- ADD TO CART -->
         <Button
             android:id="@+id/btnAddToCart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add to Cart"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="8dp"
+            android:text="@string/add_to_cart" />
 
     </LinearLayout>
 </ScrollView>

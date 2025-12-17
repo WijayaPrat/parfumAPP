@@ -1,10 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.wijayaprat.fragrancecenter.activity.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- CART WITH BADGE -->
+    <item
+        android:id="@+id/action_cart"
+        android:icon="@drawable/ic_cart"
+        android:title="@string/cart"
+        app:showAsAction="always"
+        app:actionLayout="@layout/cart_badge" />
+
+    <!-- SETTINGS -->
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_logout"
+        android:title="@string/logout"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_history"
+        android:title="Order History"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_add_product"
+        android:title="Add Product"
+        app:showAsAction="never" />
+
 </menu>
