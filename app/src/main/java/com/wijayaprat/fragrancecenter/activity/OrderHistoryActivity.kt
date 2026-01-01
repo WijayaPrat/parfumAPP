@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.wijayaprat.fragrancecenter.adapter.OrderAdapter
 import com.wijayaprat.fragrancecenter.databinding.ActivityOrderHistoryBinding
 import com.wijayaprat.fragrancecenter.helper.ProductRepository
+import com.wijayaprat.fragrancecenter.model.ParfumModel
 
 class OrderHistoryActivity : AppCompatActivity() {
 
@@ -14,13 +15,19 @@ class OrderHistoryActivity : AppCompatActivity() {
     private lateinit var adapter: OrderAdapter
     private val repository = ProductRepository()
 
+    private val orderItems = arrayListOf<ParfumModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityOrderHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = OrderAdapter(mutableListOf())
+        adapter = OrderAdapter(
+            context = this,
+            cartList = orderItems,
+            onUpdate = { /* tidak perlu update di history */ }
+        )
 
         binding.recyclerOrders.layoutManager = LinearLayoutManager(this)
         binding.recyclerOrders.adapter = adapter
@@ -31,7 +38,15 @@ class OrderHistoryActivity : AppCompatActivity() {
     private fun loadOrders() {
         repository.getOrders(
             onSuccess = { orders ->
-                adapter.updateData(orders)
+
+                orderItems.clear()
+
+                // Ambil item dari setiap order
+                orders.forEach { order ->
+                    orderItems.addAll(order.items)
+                }
+
+                adapter.notifyDataSetChanged()
             },
             onFailure = {
                 Toast.makeText(

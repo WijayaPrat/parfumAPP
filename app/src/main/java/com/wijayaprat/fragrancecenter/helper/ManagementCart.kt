@@ -1,6 +1,7 @@
 package com.wijayaprat.fragrancecenter.helper
 
 import android.content.Context
+import androidx.core.content.edit
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.wijayaprat.fragrancecenter.model.ParfumModel
@@ -10,6 +11,7 @@ class ManagementCart(context: Context) {
     private val prefs = context.getSharedPreferences("CART_PREF", Context.MODE_PRIVATE)
     private val gson = Gson()
 
+    @Suppress("unused")
     fun addItem(item: ParfumModel) {
         val list = getCart()
         val index = list.indexOfFirst { it.id == item.id }
@@ -37,6 +39,8 @@ class ManagementCart(context: Context) {
     }
 
     private fun saveCart(list: ArrayList<ParfumModel>) {
-        prefs.edit().putString("cart_list", gson.toJson(list)).apply()
+        prefs.edit {
+            putString("cart_list", gson.toJson(list))
+        }
     }
 }

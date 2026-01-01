@@ -7,14 +7,15 @@
 
     <ImageView
         android:id="@+id/imgQr"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_gravity="center"/>
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/qr_image_desc"/>
 
     <Button
         android:id="@+id/btnConfirm"
-        android:text="Saya Sudah Bayar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="@string/payment_confirmed"/>
 
 </LinearLayout>

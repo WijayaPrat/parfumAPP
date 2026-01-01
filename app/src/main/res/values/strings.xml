@@ -51,6 +51,11 @@ Longitude: %2$.5f
 Cabang terdekat: %3$s
 </string>
 
+    <!-- Admin Order -->
+    <string name="order_status_pending">Pending</string>
+    <string name="order_total_price_format">Rp %1$d</string>
+
+
     <!-- Sample UI -->
     <string name="sample_parfum_name">Nama Parfum</string>
     <string name="sample_parfum_extra">EDP 100ml</string>
@@ -86,5 +91,27 @@ Welcome to Fragrance Center. This application lets you buy many unique and limit
 
     <string name="add_product">Tambah Produk</string>
     <string name="product_list">Daftar Produk</string>
+    <string name="total_price">Total: Rp %1$s</string>
+    <string name="stock_format">Stock: %1$d</string>
+
+    <!-- Order Detail -->
+    <string name="order_qty_format">Qty: %1$d</string>
+    <string name="order_item_price_format">Rp %1$d</string>
+
+    <!-- Order Detail Item -->
+    <string name="order_item_name">Nama Parfum</string>
+    <string name="order_qty_placeholder">Qty: %1$d</string>
+    <string name="order_price_placeholder">Rp %1$d</string>
+
+    <!-- Admin QR Payment -->
+    <string name="qr_image_desc">QR Payment Image</string>
+    <string name="pick_qr_image">Pick QR Image</string>
+    <string name="save_qr_payment">Save QR Payment</string>
+
+    <string name="payment_confirmed">Payment sudah lunas</string>
+    <string name="update_status">Update Status</string>
+    <string name="order_history">Order History</string>
+
+
 
 </resources>

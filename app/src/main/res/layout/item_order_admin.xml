@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    android:elevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,24 +12,27 @@
         android:orientation="vertical"
         android:padding="12dp">
 
+        <!-- STATUS ORDER -->
         <TextView
             android:id="@+id/txtStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pending"
+            android:text="@string/order_status_pending"
             android:textStyle="bold"/>
 
+        <!-- TOTAL HARGA -->
         <TextView
             android:id="@+id/txtTotalPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total"/>
+            android:text="@string/total_price_default"/>
 
+        <!-- BUTTON UPDATE STATUS -->
         <Button
             android:id="@+id/btnUpdateStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Update Status"/>
+            android:text="@string/update_status"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

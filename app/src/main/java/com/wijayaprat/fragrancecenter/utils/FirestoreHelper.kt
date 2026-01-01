@@ -3,27 +3,47 @@ package com.wijayaprat.fragrancecenter.utils
 import com.wijayaprat.fragrancecenter.model.ParfumModel
 import com.wijayaprat.fragrancecenter.model.OrderModel
 
+@Suppress("unused")
 object FirestoreHelper {
-    // Simulasi fungsi addProduct
-    fun addProduct(product: ParfumModel, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
-        // Logika Firebase/Database Anda di sini
-        // contoh: firestore.collection("products").add(product)...
+
+    // ================= ADD PRODUCT =================
+    fun addProduct(
+        product: ParfumModel,
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        // TODO: Implement Firestore logic
+        // firestore.collection("products").add(product)
+
         onSuccess()
     }
 
-    // Simulasi fungsi getProducts
-    fun getProducts(onSuccess: (List<ParfumModel>) -> Unit, onFailure: (String) -> Unit) {
-        // Logika ambil data
-        onSuccess(arrayListOf()) // Return list kosong untuk mencegah error
+    // ================= GET PRODUCTS =================
+    fun getProducts(
+        onSuccess: (List<ParfumModel>) -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        // TODO: Implement Firestore logic
+        onSuccess(emptyList())
     }
 
-    // Simulasi fungsi getOrders
-    fun getOrders(onSuccess: (List<OrderModel>) -> Unit, onFailure: (String) -> Unit) {
-        onSuccess(arrayListOf())
+    // ================= GET ORDERS =================
+    fun getOrders(
+        onSuccess: (List<OrderModel>) -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        // TODO: Implement Firestore logic
+        onSuccess(emptyList())
     }
 
-    // Simulasi fungsi updatePayment
-    fun updatePaymentStatus(orderId: String, status: String, onSuccess: () -> Unit) {
+    // ================= UPDATE PAYMENT =================
+    fun updatePaymentStatus(
+        orderId: String,
+        status: String,
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit = {}
+    ) {
+        // TODO: Implement Firestore logic
         onSuccess()
     }
 }

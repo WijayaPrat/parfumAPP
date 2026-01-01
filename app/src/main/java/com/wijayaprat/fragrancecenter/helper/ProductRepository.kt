@@ -7,6 +7,7 @@ import com.wijayaprat.fragrancecenter.model.ParfumModel
 class ProductRepository {
 
     private val firestore = FirebaseFirestore.getInstance()
+
     fun getProducts(
         onSuccess: (List<ParfumModel>) -> Unit,
         onFailure: (Exception) -> Unit
@@ -14,16 +15,12 @@ class ProductRepository {
         firestore.collection("products")
             .get()
             .addOnSuccessListener { snapshot ->
-                val products = snapshot.toObjects(ParfumModel::class.java)
-                onSuccess(products)
+                onSuccess(snapshot.toObjects(ParfumModel::class.java))
             }
-            .addOnFailureListener { e ->
-                onFailure(e)
-            }
+            .addOnFailureListener { onFailure(it) }
     }
 
-
-    // ================= ADD PRODUCT =================
+    // ✅ TAMBAHAN: ADD PRODUCT (FIX AdminAddProductActivity)
     fun addProduct(
         product: ParfumModel,
         onSuccess: () -> Unit,
@@ -32,34 +29,33 @@ class ProductRepository {
         firestore.collection("products")
             .add(product)
             .addOnSuccessListener { onSuccess() }
-            .addOnFailureListener { e -> onFailure(e) }
+            .addOnFailureListener { onFailure(it) }
     }
 
-    // ================= REDUCE STOCK =================
+    // ✅ TAMBAHAN: REDUCE STOCK (FIX DetailedActivity)
     fun reduceStock(
         productId: String,
         onSuccess: () -> Unit,
         onFailure: (Exception) -> Unit
     ) {
-        val productRef = firestore.collection("products").document(productId)
+        val ref = firestore.collection("products").document(productId)
 
         firestore.runTransaction { transaction ->
-            val snapshot = transaction.get(productRef)
-            val currentStock = snapshot.getLong("stock") ?: 0
+            val snapshot = transaction.get(ref)
+            val stock = snapshot.getLong("stockA") ?: 0
 
-            if (currentStock > 0) {
-                transaction.update(productRef, "stock", currentStock - 1)
+            if (stock > 0) {
+                transaction.update(ref, "stockA", stock - 1)
             } else {
-                throw Exception("Out of Stock")
+                throw Exception("Stock habis")
             }
         }.addOnSuccessListener {
             onSuccess()
-        }.addOnFailureListener { e ->
-            onFailure(e)
+        }.addOnFailureListener {
+            onFailure(it)
         }
     }
 
-    // ================= SAVE ORDER =================
     fun saveOrder(
         order: OrderModel,
         onSuccess: () -> Unit,
@@ -68,6 +64,31 @@ class ProductRepository {
         firestore.collection("orders")
             .add(order)
             .addOnSuccessListener { onSuccess() }
-            .addOnFailureListener { e -> onFailure(e) }
+            .addOnFailureListener { onFailure(it) }
+    }
+
+    fun getOrders(
+        onSuccess: (List<OrderModel>) -> Unit,
+        onFailure: () -> Unit
+    ) {
+        firestore.collection("orders")
+            .get()
+            .addOnSuccessListener { snapshot ->
+                onSuccess(snapshot.toObjects(OrderModel::class.java))
+            }
+            .addOnFailureListener { onFailure() }
+    }
+
+    fun updateOrderStatus(
+        orderId: String,
+        newStatus: String,
+        onSuccess: () -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
+        firestore.collection("orders")
+            .document(orderId)
+            .update("status", newStatus)
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { onFailure(it) }
     }
 }

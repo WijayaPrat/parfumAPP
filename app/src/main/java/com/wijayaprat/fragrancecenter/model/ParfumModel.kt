@@ -9,6 +9,12 @@ data class ParfumModel(
     val price: Int = 0,
     var imageUrl: String = "",
     val brand: String = "",
-    var stock: Int = 0,
+
+    val stockA: Int = 0,
+    val stockB: Int = 0,
+
+    // tetap dipakai UI & cart
+    var stock: Int = 5,
     var quantity: Int = 1
 ) : Serializable
+

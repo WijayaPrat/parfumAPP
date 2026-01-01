@@ -15,7 +15,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.wijayaprat.fragrancecenter.R
 import com.wijayaprat.fragrancecenter.databinding.ActivityMainBinding
 import com.wijayaprat.fragrancecenter.helper.ManagementCart
-import com.wijayaprat.fragrancecenter.helper.UserSession
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,37 +37,26 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
-    // ================= AUTH GUARD =================
     override fun onStart() {
         super.onStart()
-
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user == null) {
+        if (FirebaseAuth.getInstance().currentUser == null) {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
     }
 
-    // ================= MENU =================
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         menuRef = menu
 
         val cartItem = menu.findItem(R.id.action_cart)
+        val actionView = cartItem.actionView
 
-        // 🔐 ROLE CHECK (STEP 18.3)
-        if (UserSession.role == "admin") {
-            // ADMIN → sembunyikan cart
-            cartItem.isVisible = false
-        } else {
-            // USER → cart aktif
-            val actionView = cartItem.actionView
-            actionView?.setOnClickListener {
-                startActivity(Intent(this, CartActivity::class.java))
-            }
-            updateCartBadge()
+        actionView?.setOnClickListener {
+            startActivity(Intent(this, CartActivity::class.java))
         }
 
+        updateCartBadge()
         return true
     }
 
@@ -81,11 +69,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.action_logout -> {
-                logout()
-                true
-            }
-            R.id.action_add_product -> {
-                startActivity(Intent(this, AdminAddProductActivity::class.java))
+                FirebaseAuth.getInstance().signOut()
+                startActivity(
+                    Intent(this, LoginActivity::class.java)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                )
+                finish()
                 true
             }
 
@@ -93,14 +82,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // ================= CART BADGE =================
     override fun onResume() {
         super.onResume()
-
-        // hanya user yang punya cart
-        if (UserSession.role == "user") {
-            updateCartBadge()
-        }
+        updateCartBadge()
     }
 
     private fun updateCartBadge() {
@@ -108,9 +92,7 @@ class MainActivity : AppCompatActivity() {
         val cartItem = menu.findItem(R.id.action_cart)
         val actionView = cartItem.actionView ?: return
 
-        val badge =
-            actionView.findViewById<TextView>(R.id.cart_badge)
-
+        val badge = actionView.findViewById<TextView>(R.id.cart_badge)
         val totalQty = ManagementCart(this)
             .getCart()
             .sumOf { it.quantity }
@@ -120,18 +102,6 @@ class MainActivity : AppCompatActivity() {
             if (totalQty > 0) View.VISIBLE else View.GONE
     }
 
-    // ================= LOGOUT =================
-    private fun logout() {
-        FirebaseAuth.getInstance().signOut()
-
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.flags =
-            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        finish()
-    }
-
-    // ================= NAVIGATION =================
     override fun onSupportNavigateUp(): Boolean {
         val navController =
             findNavController(R.id.nav_host_fragment_content_main)

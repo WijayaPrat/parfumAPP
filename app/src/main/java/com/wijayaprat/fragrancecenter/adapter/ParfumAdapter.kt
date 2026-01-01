@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.wijayaprat.fragrancecenter.R
 import com.wijayaprat.fragrancecenter.databinding.ItemParfumBinding
 import com.wijayaprat.fragrancecenter.model.ParfumModel
 
 class ParfumAdapter(
-    private val list: List<ParfumModel>,
+    private val list: MutableList<ParfumModel>,
     private val onClick: (ParfumModel) -> Unit
 ) : RecyclerView.Adapter<ParfumAdapter.ViewHolder>() {
 
@@ -27,24 +28,25 @@ class ParfumAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
 
-        holder.binding.tvTitle.text = item.title
-        holder.binding.tvPrice.text = "Rp ${item.price}"
+        with(holder.binding) {
+            txtTitle.text = item.title
+            txtPrice.text = root.context.getString(R.string.price_format, item.price)
+            txtStock.text = root.context.getString(R.string.stock_format, item.stock)
 
-        Glide.with(holder.itemView.context)
-            .load(item.imageUrl)
-            .into(holder.binding.imgProduct)
+            Glide.with(root.context)
+                .load(item.imageUrl)
+                .into(imgParfum)
 
-        holder.itemView.setOnClickListener {
-            onClick(item)
+            root.setOnClickListener { onClick(item) }
+            btnAddToCart.setOnClickListener { onClick(item) }
         }
     }
 
     override fun getItemCount(): Int = list.size
 
-    // 🔥 INI YANG MEMPERBAIKI ERROR KAMU
     fun updateData(newList: List<ParfumModel>) {
         list.clear()
         list.addAll(newList)
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, list.size)
     }
 }

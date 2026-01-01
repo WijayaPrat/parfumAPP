@@ -26,7 +26,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun setupRecyclerView() {
-        adapter = ParfumAdapter(mutableListOf())
+        adapter = ParfumAdapter(mutableListOf()) {
+            // klik item, kosong dulu tidak apa-apa
+        }
+
 
         binding.recyclerParfum.apply {
             layoutManager = LinearLayoutManager(requireContext())

@@ -1,5 +1,6 @@
 package com.wijayaprat.fragrancecenter.model
 
+import com.google.firebase.Timestamp
 import java.io.Serializable
 
 data class OrderModel(
@@ -7,6 +8,6 @@ data class OrderModel(
     val userId: String = "",
     val items: List<ParfumModel> = emptyList(),
     val totalPrice: Int = 0,
-    var status: String = "Pending",
-    val branch: String = ""
+    val timestamp: Timestamp = Timestamp.now(),
+    var status: String = "Pending"   // ✅ TAMBAHAN AMAN
 ) : Serializable

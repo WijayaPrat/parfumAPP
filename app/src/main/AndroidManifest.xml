@@ -10,50 +10,63 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/Theme.FragranceCenter">
 
-        <!-- 🚀 LAUNCHER SATU-SATUNYA -->
+        <!-- 🚀 LAUNCHER -->
         <activity
             android:name=".activity.IntroActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <!-- AUTH -->
         <activity
             android:name=".activity.LoginActivity"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity
             android:name=".activity.RegisterActivity"
-            android:exported="false"/>
+            android:exported="false" />
 
-        <!-- MAIN APP -->
+        <!-- MAIN -->
         <activity
             android:name=".activity.MainActivity"
-            android:exported="true"/>
+            android:exported="true" />
 
-        <!-- FEATURES -->
+        <!-- USER FEATURES -->
         <activity
             android:name=".activity.CartActivity"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity
             android:name=".activity.DetailedActivity"
-            android:exported="false"/>
-
-        <activity
-            android:name=".activity.OrderHistoryActivity"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity
             android:name=".activity.OrderDetailActivity"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity
+            android:name=".activity.OrderHistoryActivity"
+            android:exported="false" />
+
+        <!-- ADMIN -->
+        <activity
             android:name=".activity.AdminAddProductActivity"
-            android:exported="false"/>
+            android:exported="false" />
+
+        <activity
+            android:name=".activity.AdminOrderActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activity.AdminPaymentQrActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activity.AdminMainActivity"
+            android:exported="false" />
 
     </application>
 

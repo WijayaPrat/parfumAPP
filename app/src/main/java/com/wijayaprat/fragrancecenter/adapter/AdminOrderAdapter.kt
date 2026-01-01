@@ -3,6 +3,7 @@ package com.wijayaprat.fragrancecenter.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.wijayaprat.fragrancecenter.R
 import com.wijayaprat.fragrancecenter.databinding.ItemOrderAdminBinding
 import com.wijayaprat.fragrancecenter.model.OrderModel
 
@@ -25,10 +26,16 @@ class AdminOrderAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
+        val context = holder.binding.root.context
 
+        // ✅ TAMPILKAN STATUS ASLI DARI FIRESTORE
         holder.binding.txtStatus.text = item.status
-        holder.binding.txtTotalPrice.text = "Rp ${item.totalPrice}"
 
+        // ✅ FORMAT TOTAL HARGA
+        holder.binding.txtTotalPrice.text =
+            context.getString(R.string.order_total_price_format, item.totalPrice)
+
+        // ✅ BUTTON UPDATE STATUS
         holder.binding.btnUpdateStatus.setOnClickListener {
             onUpdate(item)
         }

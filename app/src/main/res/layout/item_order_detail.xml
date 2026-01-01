@@ -11,12 +11,13 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:scaleType="centerCrop"
+        android:contentDescription="@string/parfum_image_desc"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/txtTitle"
-        android:text="Nama Parfum"
+        android:text="@string/order_item_name"
         android:textStyle="bold"
         android:layout_marginStart="12dp"
         android:layout_width="0dp"
@@ -27,15 +28,19 @@
 
     <TextView
         android:id="@+id/txtQty"
-        android:text="Qty: 1"
+        android:text="@string/order_qty_placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         app:layout_constraintStart_toStartOf="@id/txtTitle"
         app:layout_constraintTop_toBottomOf="@id/txtTitle"/>
 
     <TextView
         android:id="@+id/txtPrice"
-        android:text="Rp 0"
+        android:text="@string/order_price_placeholder"
         android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/imgParfum"/>
 

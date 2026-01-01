@@ -4,32 +4,52 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide // Pastikan library Glide ada di build.gradle
+import com.bumptech.glide.Glide
+import com.wijayaprat.fragrancecenter.R
 import com.wijayaprat.fragrancecenter.databinding.ItemCartBinding
-import com.wijayaprat.fragrancecenter.model.CartModel
+import com.wijayaprat.fragrancecenter.model.ParfumModel
 
-class CartAdapter(private val context: Context, private val cartList: List<CartModel>) :
-    RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
+class CartAdapter(
+    private val context: Context,
+    private val cartList: ArrayList<ParfumModel>,
+    private val onUpdate: () -> Unit
+) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
-    class CartViewHolder(val binding: ItemCartBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ItemCartBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
-        val binding = ItemCartBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CartViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding =
+            ItemCartBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = cartList[position]
 
-        holder.binding.tvProductName.text = item.productName
-        holder.binding.tvPrice.text = item.price.toString()
+        holder.binding.txtTitle.text = item.title
+        holder.binding.txtPrice.text =
+            context.getString(R.string.price_format, item.price)
+        holder.binding.txtQuantity.text = item.quantity.toString()
 
-        // Error Fix: Menggunakan Glide dengan syntax yang benar
-        // Pastikan variabel di XML (id) adalah imgProduct
         Glide.with(context)
-            .load(item.imageUrl) // Pastikan Model Cart punya imageUrl
-            .into(holder.binding.imgProduct)
+            .load(item.imageUrl)
+            .into(holder.binding.imgParfum)
+
+        holder.binding.btnPlus.setOnClickListener {
+            item.quantity++
+            notifyItemChanged(position)
+            onUpdate()
+        }
+
+        holder.binding.btnMinus.setOnClickListener {
+            if (item.quantity > 1) {
+                item.quantity--
+                notifyItemChanged(position)
+                onUpdate()
+            }
+        }
     }
 
-    override fun getItemCount() = cartList.size
+    override fun getItemCount(): Int = cartList.size
 }

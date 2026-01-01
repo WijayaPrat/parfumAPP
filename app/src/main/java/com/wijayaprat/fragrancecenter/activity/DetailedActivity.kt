@@ -28,6 +28,7 @@ class DetailedActivity : AppCompatActivity() {
     private val imageUploadHelper = ImageUploadHelper()
 
     private var selectedImageUri: Uri? = null
+    private var currentBranch: String = ""
 
     // ================= IMAGE PICKER =================
     private val imagePicker =
@@ -47,7 +48,6 @@ class DetailedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // ================= SHARED ELEMENT TRANSITION =================
         window.sharedElementEnterTransition =
             TransitionInflater.from(this)
                 .inflateTransition(android.R.transition.move)
@@ -74,7 +74,7 @@ class DetailedActivity : AppCompatActivity() {
         // ================= SET UI =================
         with(binding) {
             txtTitle.text = item.title
-            txtExtra.text = item.extra
+            txtExtra.text = "-" // ✅ FIX FINAL (AMAN)
             txtDescription.text = item.description
             txtPrice.text = getString(R.string.price_format, item.price)
 
@@ -84,7 +84,7 @@ class DetailedActivity : AppCompatActivity() {
                 .into(imgParfum)
         }
 
-        // ================= PICK IMAGE (OPTIONAL) =================
+        // ================= PICK IMAGE =================
         binding.btnUploadImage.setOnClickListener {
             imagePicker.launch("image/*")
         }
@@ -93,36 +93,33 @@ class DetailedActivity : AppCompatActivity() {
         binding.btnAddToCart.setOnClickListener {
 
             binding.btnAddToCart.isEnabled = false
-            val branch = UserLocationManager.currentBranch
+            currentBranch = UserLocationManager.currentBranch
 
-            // 1️⃣ Reduce stock
             productRepository.reduceStock(
                 productId = item.id,
-                branch = branch,
                 onSuccess = {
 
                     val uri = selectedImageUri
 
-                    // 2️⃣ Upload image if user pick
                     if (uri != null) {
                         imageUploadHelper.uploadImage(
                             uri,
                             onSuccess = { imageUrl ->
                                 item.imageUrl = imageUrl
-                                saveOrderAndAddToCart(branch)
+                                saveOrderAndAddToCart()
                             },
                             onFailure = {
-                                saveOrderAndAddToCart(branch)
+                                saveOrderAndAddToCart()
                             }
                         )
                     } else {
-                        saveOrderAndAddToCart(branch)
+                        saveOrderAndAddToCart()
                     }
                 },
                 onFailure = {
                     Toast.makeText(
                         this,
-                        "Stok cabang $branch habis",
+                        "Stok cabang $currentBranch habis",
                         Toast.LENGTH_SHORT
                     ).show()
 
@@ -132,39 +129,27 @@ class DetailedActivity : AppCompatActivity() {
         }
     }
 
+    // ================= SAVE ORDER =================
+    private fun saveOrderAndAddToCart() {
 
-
-    // ================= STEP 10.3 — SAVE ORDER =================
-    private fun saveOrderAndAddToCart(branch: String) {
-
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
-            ?: return
-
-// File: DetailedActivity.kt
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
         val order = OrderModel(
             userId = userId,
-            productId = item.id,
-            title = item.title,
-
-            // UBAH BARIS INI: Tambahkan .toDouble()
-            price = item.price.toDouble(),
-
-            imageUrl = item.imageUrl,
-            branch = branch,
-            quantity = item.quantity
+            items = listOf(item),
+            totalPrice = item.price * item.quantity,
+            status = "Pending"
         )
 
         productRepository.saveOrder(
             order = order,
             onSuccess = {
 
-                // add to local cart
                 managementCart.addItem(item)
 
                 Toast.makeText(
                     this,
-                    "Order berhasil disimpan",
+                    "Order berhasil disimpan ($currentBranch)",
                     Toast.LENGTH_SHORT
                 ).show()
 

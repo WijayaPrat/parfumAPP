@@ -67,14 +67,15 @@
                 android:text="@string/sample_parfum_price"
                 android:textStyle="bold"
                 android:textSize="14sp"
-                android:textColor="@color/black"/>
+                android:textColor="@android:color/black"/>
+
 
             <TextView
                 android:id="@+id/txtStock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:textColor="@color/black"/>
+                android:textColor="@android:color/black"/>
 
 
         </LinearLayout>

@@ -1,9 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
+    <!-- BASE THEME (INI YANG HILANG) -->
     <style name="Base.Theme.FragranceCenter" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/brand_primary</item>
+        <item name="colorOnPrimary">@color/brand_on_primary</item>
     </style>
 
+    <!-- APP THEME -->
     <style name="Theme.FragranceCenter" parent="Base.Theme.FragranceCenter" />
+
 </resources>
